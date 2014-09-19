@@ -2,7 +2,6 @@
 
 class Ip_Cachewarm_Model_Crawler
 {
-
     public function cron()
     {
         if($files = Mage::helper('cachewarm')->getMaps()){
@@ -13,6 +12,7 @@ class Ip_Cachewarm_Model_Crawler
                     foreach($xml as $sectionName => $sectionData){
                         if($sectionName == "url"){
                             try{
+                                Mage::log($sectionData->loc, null, 'cachewarm.log', true);
                                 $ch = curl_init();
                                 curl_setopt($ch, CURLOPT_URL, (string)$sectionData->loc);
                                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -20,6 +20,7 @@ class Ip_Cachewarm_Model_Crawler
                                 curl_close($ch);
                             } catch(Exception $e){
                                 Mage::logException($e);
+                                Mage::log('error: ' . $e->getMessage(), null, 'cachewarm.log', true);
                             }
                         }
                     }
@@ -27,5 +28,4 @@ class Ip_Cachewarm_Model_Crawler
             }
         }
     }
-
 }
