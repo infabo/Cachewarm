@@ -1,13 +1,12 @@
 <?php
 
-include("Mage/Adminhtml/controllers/CacheController.php");
 class Ip_Cachewarm_Admin_CacheController extends Mage_Adminhtml_CacheController
 {
 
     public function warmAction()
     {
 
-        if(!$sitemaps = Mage::getModel('sitemap/sitemap')->getCollection()){
+        if (!$sitemaps = Mage::getModel('sitemap/sitemap')->getCollection()) {
 
             $this->_getSession()->addError(Mage::helper('adminhtml')->__("No sitemaps have been found, please generate one now."));
 
@@ -19,9 +18,9 @@ class Ip_Cachewarm_Admin_CacheController extends Mage_Adminhtml_CacheController
 
         $results = array();
 
-        foreach($sitemaps as $sitemap){
+        foreach ($sitemaps as $sitemap) {
 
-            $file = Mage::getBaseDir('base').$sitemap->getSitemapPath().$sitemap->getSitemapFilename();
+            $file = Mage::getBaseDir('base') . $sitemap->getSitemapPath() . $sitemap->getSitemapFilename();
 
             $results[] = $file;
 
